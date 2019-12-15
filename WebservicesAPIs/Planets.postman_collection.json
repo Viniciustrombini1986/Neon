@@ -1,0 +1,56 @@
+{
+	"info": {
+		"_postman_id": "094d6efa-30a4-4dc7-ba96-708b2b88075c",
+		"name": "Planets",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "https://swapi.co/api/planets/",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "16d69c9a-bc2e-4a82-a409-28c79191193d",
+						"exec": [
+							"// Faz requisição na API Planets, captura o valor do \"count\" soma + 1 e faz uma nova requisição na mesma API com o valor count + 1.",
+							"tests[\"Status code retornado foi 200\"] = responseCode.code === 200;",
+							"",
+							"var responseJSON;",
+							"try {",
+							"    responseJSON = JSON.parse(responseBody);",
+							"    var contador = responseJSON.count;",
+							"    var numSuperior = contador + 1;",
+							"    pm.sendRequest('https://swapi.co/api/planets/' + numSuperior, function (err, res) {",
+							"        pm.expect(res).to.have.property('code', 404);",
+							"        pm.expect(res).to.have.property('status', \"NOT FOUND\");",
+							"    });",
+							"}",
+							"catch (e) { }"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://swapi.co/api/planets/",
+					"protocol": "https",
+					"host": [
+						"swapi",
+						"co"
+					],
+					"path": [
+						"api",
+						"planets",
+						""
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}

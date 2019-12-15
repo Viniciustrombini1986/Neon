@@ -1,0 +1,61 @@
+{
+	"info": {
+		"_postman_id": "6c3e0063-36e5-45d0-93e4-2ab9f944d1b4",
+		"name": "Films",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "https://swapi.co/api/films",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "cf1911f0-b207-4145-b168-cf7bea50146d",
+						"exec": [
+							"// Faz requisição na API Films, captura os valores dos títulos e os exibem.",
+							"if(responseCode.code == 200) {",
+							"    pm.test(\"Status code é 200\");",
+							"    console.log(\"Status code retornado foi \" +responseCode.code);",
+							"}else {",
+							"    console.log(\"Status code diferente de 200, status code retornado foi \" +responseCode.code);",
+							"}",
+							"",
+							"var responseJSON;",
+							"try {",
+							"    responseJSON = JSON.parse(responseBody);",
+							"    var listaFilmes = responseJSON.results;",
+							"    var listaNomeFilmes = listaFilmes.map(item => item.title);",
+							"    console.log(\"##################### Título dos filmes #####################\");",
+							"    listaFilmes.map(item => console.log(item.title));",
+							"    console.log(\"##################### Final da lista #####################\");",
+							"}",
+							"catch (e) {",
+							"    console.log(e);",
+							"}"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://swapi.co/api/films",
+					"protocol": "https",
+					"host": [
+						"swapi",
+						"co"
+					],
+					"path": [
+						"api",
+						"films"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
